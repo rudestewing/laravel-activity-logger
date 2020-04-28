@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Rudestewing\ActivityLogger\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class InstallActivityLog extends Command
 {
@@ -11,7 +12,7 @@ class InstallActivityLog extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'activity-log:install';
 
     /**
      * The console command description.
@@ -37,6 +38,9 @@ class InstallActivityLog extends Command
      */
     public function handle()
     {
-        //
+        Artisan::call('vendor:publish', [
+            '--provider' => "Rudestewing\ActivityLog\ActivityLogServiceProvider",
+            '--tag' => 'migrations'
+        ]);
     }
 }
