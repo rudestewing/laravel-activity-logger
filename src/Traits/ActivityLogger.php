@@ -1,6 +1,7 @@
 <?php
 namespace Rudestewing\ActivityLogger\Traits;
 
+use Illuminate\Auth\AuthManager;
 use Rudestewing\ActivityLogger\Models\ActivityLog;
 
 trait ActivityLogger
@@ -45,7 +46,7 @@ trait ActivityLogger
     }
 
 
-    private function identifyCauser()
+    private function identifyCauser(): AuthManager
     {
         return auth();
     }
@@ -55,7 +56,8 @@ trait ActivityLogger
         if($authCauser == null) {
             return null;
         }
-        
+
+        return $authCauser->id;
     }
 
     private function getCauserType($authCauser = null)
@@ -63,7 +65,8 @@ trait ActivityLogger
         if($authCauser == null) {
             return null;
         }
-        
+
+        return optional(optional(optional($authCauser)->guard())->getProvider())->getModel();
     }
 
     // relations
