@@ -3,10 +3,13 @@
 baru bikin . nanti dulu
 
 jalankan perintah
+```php
 composer require rudestewing/laravel-activity-logger
+```
 
 buka file di config/app.php
 tambahkan service provider pada key 'providers'
+
 ```php
 
     'providers' => [
@@ -20,10 +23,13 @@ tambahkan service provider pada key 'providers'
 ```
 
 jalankan perintah
+```php
 php artisan vendor:publish --provider="Rudestewing\ActivityLogger\ActivityLogServiceProvider" --tag="migrations" 
-
+```
 kemudian lakukan migration
+```php
 php artisan migrate
+```
 
 
 ### How to Use
