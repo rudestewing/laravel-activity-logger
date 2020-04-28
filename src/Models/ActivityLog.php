@@ -29,6 +29,12 @@ class ActivityLog extends Model
     {
         $uuid = (string) Str::uuid().time();
 
+        $class = __CLASS__;
+
+        if($class::find($uuid)) {
+            return self::generateUUID();
+        }
+
         return $uuid;
     }
 

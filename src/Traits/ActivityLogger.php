@@ -27,8 +27,8 @@ trait ActivityLogger
         $this->subjectActivityLogs()->create([
             'causerable_id' => $this->getCauserKey($authCauser),
             'causerable_type' => $this->getCauserType($authCauser),
-            'before' => $diff['before'],
-            'after' => $diff['after'],
+            'before' => json_encode($diff['before']),
+            'after' => json_encode($diff['after']),
             'action' => $action
         ]);
     }
