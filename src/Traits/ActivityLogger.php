@@ -48,7 +48,23 @@ trait ActivityLogger
 
     private function identifyCauser(): AuthManager
     {
-        return auth();
+        // $guard = auth()->guard(); // Retrieve the guard
+        // $sessionName = $guard->getName(); // Retrieve the session name for the guard
+        
+        // // The following extracts the name of the guard by disposing of the first
+        // // and last sections delimited by "_"
+        // $parts = explode("_", $sessionName);
+        // unset($parts[count($parts)-1]);
+        // unset($parts[0]);
+        // $guardName = implode("_",$parts);
+
+        $auth = auth();
+
+        if($auth) {
+            return auth();
+        }
+
+        return null;
     }
 
     private function getCauserKey($authCauser = null)
@@ -57,7 +73,8 @@ trait ActivityLogger
             return null;
         }
 
-        return $authCauser->id;
+        $model = $authCauser->user();
+        return ($model->{$model->getKeyName()});
     }
 
     private function getCauserType($authCauser = null)
@@ -66,8 +83,9 @@ trait ActivityLogger
             return null;
         }
 
-        return optional(optional(optional($authCauser)->guard())->getProvider())->getModel();
+        return $authCauser->guard()->getProvider()->getModel();
     }
+
 
     // relations
     public function subjectActivityLogs()
