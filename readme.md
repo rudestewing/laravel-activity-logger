@@ -1,6 +1,5 @@
 # Laravel Activity Logger
 
-baru bikin . nanti dulu
 
 jalankan perintah
 ```php
